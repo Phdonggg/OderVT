@@ -338,7 +338,7 @@
                         <th style="width:22%">Kho</th>
                         <th style="width:28%">Mã hàng - Tên hàng</th>
                         <th style="width:13%">ĐVT</th>
-                        <th style="width:13%">tồn cuối</th>
+                        <th style="width:13%">Số lượng</th>
                         <th style="width:8%"></th>
                     </tr>
                 </thead>
@@ -781,9 +781,9 @@
                         <span class="dvt-display">${dvt || '--'}</span>
                     </div>
                 </td>
-                <td data-label="tồn cuối">
+                <td data-label="Số lượng">
                     <input type="number" class="soluong-input" name="soluong_${rowCounter}" 
-                           min="0.01" step="any" placeholder="Nhập tồn cuối" value="${soluong}">
+                           min="0.01" step="any" placeholder="Nhập số lượng" value="${soluong}">
                 </td>
                 <td>
                     <button type="button" class="btn-remove-row" title="Xóa dòng">✕</button>
@@ -892,7 +892,7 @@
             });
 
             if (hasError || orderItems.length === 0) {
-                showToast('⚠️ Vui lòng điền đầy đủ thông tin cho tất cả các dòng (chọn kho, mã hàng và tồn cuối > 0).', true);
+                showToast('⚠️ Vui lòng điền đầy đủ thông tin cho tất cả các dòng (chọn kho, mã hàng và số lượng > 0).', true);
                 return;
             }
 
@@ -933,7 +933,7 @@
 
         // Cập nhật trạng thái webhook nếu người dùng muốn test
         console.log('🌊 Hệ thống Order Vật Tư - Hải Châu đã sẵn sàng.');
-        console.log('📋 tồn cuối vật tư trong danh mục:', inventoryData.length);
+        console.log('📋 Số lượng vật tư trong danh mục:', inventoryData.length);
         console.log('🏢 Số kho:', khoList.length);
         console.log('🔗 Webhook URL hiện tại:', WEBHOOK_URL);
         console.log('ℹ️ Để thay đổi webhook URL, hãy sửa biến WEBHOOK_URL trong mã nguồn.');
