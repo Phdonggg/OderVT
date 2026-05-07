@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>📱 Kiểm kê kho - Mobile | Quét thực tế</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: #f4f7fb;
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, Helvetica, sans-serif;
+            padding: 12px 10px 80px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Header */
+        .top-header {
+            background: #0b3b5f;
+            color: white;
+            padding: 16px 14px;
+            border-radius: 28px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .top-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .top-header p {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 6px;
+        }
+        /* card upload */
+        .upload-card {
+            background: white;
+            border-radius: 24px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .file-label {
+            background: #1e6f5c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-badge {
+            font-size: 0.7rem;
+            background: #eef2ff;
+            padding: 6px 12px;
+            border-radius: 30px;
+            color: #0c4a6e;
+        }
+        /* thanh công cụ sticky */
+        .sticky-tools {
+            position: sticky;
+            top: 8px;
+            z-index: 100;
+            background: #f4f7fb;
+            padding: 6px 0 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+        .search-box {
+            flex: 2;
+            min-width: 140px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 40px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            background: white;
+        }
+        .warehouse-filter select {
+            padding: 12px 14px;
+            border-radius: 40px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .btn-small {
+            background: #2c7da0;
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-reset {
+            background: #475569;
+        }
+        /* Card sản phẩm (thay thế bảng) */
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            margin-bottom: 14px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: 0.1s;
+            border: 1px solid #e2edf2;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #dce5ec;
+            padding-bottom: 8px;
+        }
+        .code {
+            font-weight: 700;
+            background: #eef2ff;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            color: #0f3b5c;
+        }
+        .warehouse-tag {
+            font-size: 0.7rem;
+            color: #4b5563;
+        }
+        .product-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 12px 0 8px;
+            line-height: 1.3;
+        }
+        .book-row {
+            display: flex;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 10px 12px;
+            border-radius: 20px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        .book-label {
+            color: #475569;
+        }
+        .book-value {
+            font-weight: 700;
+            color: #0b3b5f;
+        }
+        .actual-input-area {
+            margin: 12px 0;
+        }
+        .actual-input-area label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        .actual-input-area input {
+            width: 100%;
+            padding: 16px 14px;
+            font-size: 1.2rem;
+            border-radius: 28px;
+            border: 1.5px solid #cbd5e1;
+            text-align: center;
+            background: white;
+            font-weight: 600;
+        }
+        .diff-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 12px 0 8px;
+            padding: 8px 0;
+        }
+        .diff-badge {
+            background: #eef2ff;
+            border-radius: 40px;
+            padding: 6px 14px;
+            font-weight: 700;
+        }
+        .positive {
+            background: #dcfce7;
+            color: #15803d;
+        }
+        .negative {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        .zero-badge {
+            background: #e2e8f0;
+            color: #2c3e50;
+        }
+        .note-input {
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 28px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.85rem;
+            background: #fff;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 32px;
+            color: #5e6f8d;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 24px;
+            color: #5e6f8d;
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="top-header">
+        <h1>📦 Kiểm kê kho <span style="font-size:0.8rem;">phiên bản mobile</span></h1>
+        <p>⬆️ Tải file Excel → nhập số lượng thực tế → tự động lưu & đối chiếu</p>
+    </div>
+
+    <div class="upload-card">
+        <label class="file-label" for="excelFile">📂 Chọn file Excel</label>
+        <input type="file" id="excelFile" accept=".xlsx, .xls" style="display:none;">
+        <span class="status-badge" id="fileStatus">Chưa tải</span>
+        <button id="exportBtnMobile" class="btn-small" style="background:#0b5e7c;">📄 Xuất BB</button>
+        <button id="resetAllBtnMobile" class="btn-small btn-reset">⟳ Reset</button>
+    </div>
+
+    <div class="sticky-tools">
+        <div class="search-box">
+            <input type="text" id="searchMobile" placeholder="🔍 Tìm mã, tên, kho..." autocomplete="off">
+        </div>
+        <div class="warehouse-filter">
+            <select id="warehouseMobile">
+                <option value="ALL">📁 Tất cả kho</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="productList"></div>
+    <footer>📌 Dữ liệu tự động lưu vào máy (localStorage) - Tải lại trang vẫn giữ số kiểm kê. Bấm "Xuất BB" để lưu biên bản PDF.</footer>
+</div>
+
+<script>
+    // ==================== biến toàn cục ====================
+    let inventory = [];      // { warehouse, itemCode, itemName, unit, bookQty, actualQty, note }
+    let isLoadingFromStorage = false;
+
+    // DOM elements
+    const excelFileInput = document.getElementById('excelFile');
+    const fileStatusSpan = document.getElementById('fileStatus');
+    const searchInput = document.getElementById('searchMobile');
+    const warehouseSelect = document.getElementById('warehouseMobile');
+    const productListDiv = document.getElementById('productList');
+    const exportBtn = document.getElementById('exportBtnMobile');
+    const resetBtn = document.getElementById('resetAllBtnMobile');
+
+    // ==================== LocalStorage ====================
+    function saveToLocalStorage() {
+        if (inventory.length > 0) {
+            localStorage.setItem('inventoryData', JSON.stringify(inventory));
+        }
+    }
+
+    function loadFromLocalStorage() {
+        const saved = localStorage.getItem('inventoryData');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    inventory = parsed;
+                    isLoadingFromStorage = true;
+                    updateWarehouseFilter();
+                    renderProductCards();
+                    fileStatusSpan.innerText = `📱 Đã khôi phục (${inventory.length})`;
+                    return true;
+                }
+            } catch(e) {}
+        }
+        return false;
+    }
+
+    // ==================== Xử lý file Excel ====================
+    function parseExcelData(workbook) {
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
+        let items = [];
+        let currentWarehouse = "";
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            if (!row || row.length < 6) continue;
+            const colA = (row[0] || "").toString().trim();
+            if (colA.startsWith("Tên kho") && colA.includes(":")) {
+                let raw = colA.replace(/^Tên kho\s*:\s*/, "").trim();
+                currentWarehouse = raw.split("(")[0].trim();
+                continue;
+            }
+            if (!currentWarehouse) continue;
+            let whFromColB = (row[1] || "").toString().trim();
+            let itemCode = (row[2] || "").toString().trim();
+            let itemName = (row[3] || "").toString().trim();
+            let unit = (row[4] || "").toString().trim();
+            let qtyRaw = (row[5] !== undefined && row[5] !== "") ? row[5] : 0;
+            let bookQty = parseFloat(qtyRaw);
+            if (isNaN(bookQty)) bookQty = 0;
+            if (itemCode === "" && itemName === "") continue;
+            if (itemCode.toLowerCase().includes("số dòng")) continue;
+            let warehouse = (whFromColB && whFromColB !== "") ? whFromColB : currentWarehouse;
+            items.push({
+                warehouse: warehouse,
+                itemCode: itemCode,
+                itemName: itemName,
+                unit: unit,
+                bookQty: bookQty,
+                actualQty: bookQty,
+                note: ""
+            });
+        }
+        return items;
+    }
+
+    function handleExcelFile(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            try {
+                const newItems = parseExcelData(workbook);
+                if (newItems.length === 0) throw new Error("Không có dữ liệu hàng");
+                inventory = newItems;
+                saveToLocalStorage();
+                updateWarehouseFilter();
+                renderProductCards();
+                fileStatusSpan.innerText = `✅ Đã tải: ${inventory.length} mặt hàng`;
+                searchInput.value = '';
+                warehouseSelect.value = 'ALL';
+            } catch (err) {
+                alert("Lỗi đọc file: " + err.message);
+                fileStatusSpan.innerText = "❌ File sai cấu trúc";
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    // ==================== render dạng card (mobile) ====================
+    function renderProductCards() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const selectedWh = warehouseSelect.value;
+
+        let filtered = inventory.filter(item => {
+            if (selectedWh !== "ALL" && item.warehouse !== selectedWh) return false;
+            if (searchTerm !== "") {
+                return item.itemCode.toLowerCase().includes(searchTerm) ||
+                       item.itemName.toLowerCase().includes(searchTerm) ||
+                       item.warehouse.toLowerCase().includes(searchTerm);
+            }
+            return true;
+        });
+
+        if (filtered.length === 0) {
+            productListDiv.innerHTML = `<div class="empty-state">🔍 Không tìm thấy mặt hàng nào.</div>`;
+            return;
+        }
+
+        let html = '';
+        filtered.forEach((item, idx) => {
+            const diff = item.actualQty - item.bookQty;
+            let diffClass = "zero-badge";
+            let diffSign = "0";
+            if (diff > 0) { diffClass = "positive"; diffSign = `+${diff}`; }
+            else if (diff < 0) { diffClass = "negative"; diffSign = `${diff}`; }
+            else diffSign = "0";
+
+            // highlight tìm kiếm (nhẹ)
+            let displayName = item.itemName;
+            let displayCode = item.itemCode;
+            if (searchTerm) {
+                const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                displayName = displayName.replace(regex, `<mark style="background:#fef08a;">$1</mark>`);
+                displayCode = displayCode.replace(regex, `<mark style="background:#fef08a;">$1</mark>`);
+            }
+
+            html += `
+                <div class="product-card" data-code="${item.itemCode}" data-wh="${item.warehouse}">
+                    <div class="card-header">
+                        <span class="code">${escapeHtml(displayCode)}</span>
+                        <span class="warehouse-tag">🏚️ ${escapeHtml(item.warehouse)}</span>
+                    </div>
+                    <div class="product-name">${escapeHtml(displayName)}</div>
+                    <div class="book-row">
+                        <span class="book-label">📄 Tồn sổ sách</span>
+                        <span class="book-value">${item.bookQty.toLocaleString()} ${item.unit}</span>
+                    </div>
+                    <div class="actual-input-area">
+                        <label>🔎 Kiểm kê thực tế</label>
+                        <input type="number" step="any" class="actual-mobile-input" value="${item.actualQty}" data-idx="${idx}" data-warehouse="${item.warehouse}" data-code="${item.itemCode}">
+                    </div>
+                    <div class="diff-row">
+                        <span>📊 Chênh lệch</span>
+                        <span class="diff-badge ${diffClass}">${diffSign}</span>
+                    </div>
+                    <input type="text" class="note-input" placeholder="✏️ Ghi chú nguyên nhân (VD: xuất chưa kịp nhập...)" value="${escapeHtml(item.note)}" data-note-idx="${idx}">
+                </div>
+            `;
+        });
+        productListDiv.innerHTML = html;
+
+        // gắn sự kiện cho các input thay đổi số lượng thực tế
+        document.querySelectorAll('.actual-mobile-input').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const warehouse = input.getAttribute('data-warehouse');
+                const code = input.getAttribute('data-code');
+                let newVal = parseFloat(e.target.value);
+                if (isNaN(newVal)) newVal = 0;
+                const item = inventory.find(i => i.warehouse === warehouse && i.itemCode === code);
+                if (item) {
+                    item.actualQty = newVal;
+                    saveToLocalStorage();
+                    renderProductCards();  // cập nhật lại chênh lệch
+                }
+            });
+        });
+        // gắn sự kiện ghi chú
+        document.querySelectorAll('.note-input').forEach(note => {
+            note.addEventListener('change', (e) => {
+                const idxAttr = note.getAttribute('data-note-idx');
+                if (idxAttr !== null && inventory[parseInt(idxAttr)]) {
+                    inventory[parseInt(idxAttr)].note = e.target.value;
+                    saveToLocalStorage();
+                } else {
+                    // fallback tìm theo mã (dự phòng)
+                    const parent = note.closest('.product-card');
+                    if(parent) {
+                        const code = parent.getAttribute('data-code');
+                        const wh = parent.getAttribute('data-wh');
+                        const item = inventory.find(i => i.warehouse === wh && i.itemCode === code);
+                        if(item) { item.note = e.target.value; saveToLocalStorage(); }
+                    }
+                }
+            });
+        });
+    }
+
+    function updateWarehouseFilter() {
+        const whSet = [...new Set(inventory.map(i => i.warehouse))];
+        warehouseSelect.innerHTML = '<option value="ALL">📁 Tất cả kho</option>';
+        whSet.sort().forEach(wh => {
+            warehouseSelect.innerHTML += `<option value="${escapeHtml(wh).replace(/"/g, '&quot;')}">🏢 ${escapeHtml(wh)}</option>`;
+        });
+    }
+
+    function escapeHtml(str) {
+        if(!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // reset tất cả về sổ sách
+    function resetAllToBook() {
+        if(inventory.length === 0) return;
+        inventory.forEach(item => {
+            item.actualQty = item.bookQty;
+            item.note = "";
+        });
+        saveToLocalStorage();
+        renderProductCards();
+        fileStatusSpan.innerText = `⟳ Đã reset về tồn sổ (${inventory.length} món)`;
+    }
+
+    // Xuất biên bản (đẹp, giống như bảng)
+    function exportReport() {
+        if(inventory.length === 0) {
+            alert("Chưa có dữ liệu kiểm kê. Hãy tải file Excel trước.");
+            return;
+        }
+        const now = new Date();
+        const datetimeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}`;
+        let rows = '';
+        let totalBook = 0, totalActual = 0;
+        inventory.forEach((item, i) => {
+            const diff = item.actualQty - item.bookQty;
+            totalBook += item.bookQty;
+            totalActual += item.actualQty;
+            rows += `<tr>
+                <td>${i+1}</td>
+                <td>${escapeHtml(item.warehouse)}</td>
+                <td>${escapeHtml(item.itemCode)}</td>
+                <td>${escapeHtml(item.itemName)}</td>
+                <td>${escapeHtml(item.unit)}</td>
+                <td>${item.bookQty.toLocaleString()}</td>
+                <td>${item.actualQty.toLocaleString()}</td>
+                <td style="color:${diff>0?'#15803d':(diff<0?'#b91c1c':'#2c7da0')}">${diff>0?'+':''}${diff.toLocaleString()}</td>
+                <td>${escapeHtml(item.note)}</td>
+            </tr>`;
+        });
+        const totalDiff = totalActual - totalBook;
+        const reportHtml = `<!DOCTYPE html>
+        <html><head><meta charset="UTF-8"><title>Biên bản kiểm kê kho</title>
+        <style>body{font-family: Arial; margin:20px;} table{border-collapse:collapse; width:100%;} th,td{border:1px solid #aaa; padding:6px; font-size:12px;} th{background:#eef2f5;} .sign{display:flex; justify-content:space-between; margin-top:40px;}</style></head>
+        <body><h2 style="text-align:center;">BIÊN BẢN KIỂM KÊ TỒN KHO</h2><p>Ngày lập: ${datetimeStr}</p>
+        <table><thead><tr><th>STT</th><th>Kho</th><th>Mã hàng</th><th>Tên hàng</th><th>ĐVT</th><th>Tồn sổ</th><th>Thực tế</th><th>Chênh lệch</th><th>Ghi chú</th></tr></thead><tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="5"><b>Tổng</b></td><td><b>${totalBook.toLocaleString()}</b></td><td><b>${totalActual.toLocaleString()}</b></td><td><b>${totalDiff>0?'+':''}${totalDiff.toLocaleString()}</b></td><td></td></tr></tfoot></table>
+        <div class="sign"><div>Thủ kho<br/>____________</div><div>Kế toán<br/>____________</div><div>Trưởng đoàn<br/>____________</div></div>
+        <p style="font-size:11px; margin-top:30px;">Biên bản được lập theo kiểm kê thực tế.</p></body></html>`;
+        const win = window.open();
+        win.document.write(reportHtml);
+        win.document.close();
+        win.print();
+    }
+
+    // ==================== Sự kiện ====================
+    excelFileInput.addEventListener('change', (e) => {
+        if(e.target.files[0]) {
+            handleExcelFile(e.target.files[0]);
+        }
+    });
+    document.querySelector('.file-label').addEventListener('click', () => {
+        excelFileInput.click();
+    });
+    searchInput.addEventListener('input', () => renderProductCards());
+    warehouseSelect.addEventListener('change', () => renderProductCards());
+    exportBtn.addEventListener('click', exportReport);
+    resetBtn.addEventListener('click', resetAllToBook);
+
+    // thử khôi phục localStorage khi load
+    if(!loadFromLocalStorage()) {
+        // không có dữ liệu cũ
+        fileStatusSpan.innerText = "⬆️ Tải file Excel để bắt đầu";
+        productListDiv.innerHTML = `<div class="empty-state">📂 Chưa có dữ liệu. Hãy tải file tổng hợp tồn kho (Excel) lên.</div>`;
+    }
+</script>
+</body>
+</html>
