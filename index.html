@@ -2,573 +2,942 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>📱 Kiểm kê kho - Mobile | Quét thực tế</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Vật Tư - Công ty Cổ phần Thực phẩm Quốc Tế Hải Châu</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
+
         body {
-            background: #f4f7fb;
-            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, Helvetica, sans-serif;
-            padding: 12px 10px 80px;
-            color: #1e293b;
+            background: linear-gradient(135deg, #e9f0f5 0%, #dce6ef 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
+
         .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        /* Header */
-        .top-header {
-            background: #0b3b5f;
-            color: white;
-            padding: 16px 14px;
-            border-radius: 28px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .top-header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .top-header p {
-            font-size: 0.75rem;
-            opacity: 0.8;
-            margin-top: 6px;
-        }
-        /* card upload */
-        .upload-card {
-            background: white;
-            border-radius: 24px;
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .file-label {
-            background: #1e6f5c;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .status-badge {
-            font-size: 0.7rem;
-            background: #eef2ff;
-            padding: 6px 12px;
-            border-radius: 30px;
-            color: #0c4a6e;
-        }
-        /* thanh công cụ sticky */
-        .sticky-tools {
-            position: sticky;
-            top: 8px;
-            z-index: 100;
-            background: #f4f7fb;
-            padding: 6px 0 8px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
-            backdrop-filter: blur(4px);
-        }
-        .search-box {
-            flex: 2;
-            min-width: 140px;
-        }
-        .search-box input {
             width: 100%;
-            padding: 12px 14px;
-            border-radius: 40px;
-            border: 1px solid #cbd5e1;
-            font-size: 0.9rem;
-            background: white;
+            max-width: 1100px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 40, 80, 0.15);
+            overflow: hidden;
+            margin-top: 20px;
         }
-        .warehouse-filter select {
-            padding: 12px 14px;
-            border-radius: 40px;
-            border: 1px solid #cbd5e1;
-            background: white;
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
-        .btn-small {
-            background: #2c7da0;
-            border: none;
+
+        .header {
+            background: linear-gradient(135deg, #004d7a, #0077b6);
+            padding: 25px 35px;
             color: white;
-            padding: 10px 16px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        .btn-reset {
-            background: #475569;
-        }
-        /* Card sản phẩm (thay thế bảng) */
-        .product-card {
-            background: white;
-            border-radius: 24px;
-            margin-bottom: 14px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: 0.1s;
-            border: 1px solid #e2edf2;
-        }
-        .card-header {
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+            align-items: center;
+            gap: 20px;
             flex-wrap: wrap;
-            margin-bottom: 12px;
-            border-bottom: 1px dashed #dce5ec;
-            padding-bottom: 8px;
         }
-        .code {
+
+        .header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .header .logo-icon {
+            width: 55px;
+            height: 55px;
+            background: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #004d7a;
+            font-weight: bold;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
             font-weight: 700;
-            background: #eef2ff;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            color: #0f3b5c;
-        }
-        .warehouse-tag {
-            font-size: 0.7rem;
-            color: #4b5563;
-        }
-        .product-name {
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 12px 0 8px;
+            letter-spacing: 1px;
             line-height: 1.3;
         }
-        .book-row {
-            display: flex;
-            justify-content: space-between;
-            background: #f8fafc;
-            padding: 10px 12px;
-            border-radius: 20px;
-            margin: 10px 0;
-            font-size: 0.9rem;
-        }
-        .book-label {
-            color: #475569;
-        }
-        .book-value {
-            font-weight: 700;
-            color: #0b3b5f;
-        }
-        .actual-input-area {
-            margin: 12px 0;
-        }
-        .actual-input-area label {
-            font-weight: 600;
+        .header h1 small {
             display: block;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
         }
-        .actual-input-area input {
+
+        .form-body {
+            padding: 30px 35px;
+        }
+
+        .order-table {
             width: 100%;
-            padding: 16px 14px;
-            font-size: 1.2rem;
-            border-radius: 28px;
-            border: 1.5px solid #cbd5e1;
-            text-align: center;
-            background: white;
-            font-weight: 600;
+            border-collapse: separate;
+            border-spacing: 0 12px;
         }
-        .diff-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin: 12px 0 8px;
-            padding: 8px 0;
-        }
-        .diff-badge {
-            background: #eef2ff;
-            border-radius: 40px;
-            padding: 6px 14px;
-            font-weight: 700;
-        }
-        .positive {
-            background: #dcfce7;
-            color: #15803d;
-        }
-        .negative {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-        .zero-badge {
-            background: #e2e8f0;
+
+        .order-table th {
+            text-align: left;
+            padding: 0 8px 8px 8px;
             color: #2c3e50;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .note-input {
+
+        .order-table td {
+            padding: 0 8px;
+            vertical-align: top;
+        }
+
+        .order-table select,
+        .order-table input {
             width: 100%;
-            margin-top: 12px;
-            padding: 10px 14px;
-            border-radius: 28px;
-            border: 1px solid #cbd5e1;
-            font-size: 0.85rem;
+            padding: 12px 14px;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: #f9fbfd;
+            transition: all 0.25s ease;
+            outline: none;
+            color: #1a2b3c;
+        }
+
+        .order-table select:focus,
+        .order-table input:focus {
+            border-color: #0077b6;
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.1);
             background: #fff;
         }
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            background: white;
-            border-radius: 32px;
-            color: #5e6f8d;
+
+        .order-table .dvt-cell {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        footer {
+        .order-table .dvt-cell span {
+            padding: 10px 14px;
+            background: #eef3f8;
+            border-radius: 10px;
+            font-weight: 500;
+            color: #1e4660;
+            min-width: 60px;
             text-align: center;
-            font-size: 0.7rem;
-            margin-top: 24px;
-            color: #5e6f8d;
+            font-size: 0.9rem;
         }
-        button {
+
+        .btn-remove-row {
+            background: #fff;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 1.2rem;
             cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+        .btn-remove-row:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add {
+            background: #e8f4fd;
+            color: #0077b6;
+            border: 2px dashed #0077b6;
+        }
+        .btn-add:hover {
+            background: #d0eaff;
+            border-style: solid;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #0077b6, #023e8a);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 119, 182, 0.3);
+        }
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #0096c7, #023e8a);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 119, 182, 0.4);
+        }
+
+        .note-field {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .note-field label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .note-field textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e6ed;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 80px;
+            background: #f9fbfd;
+            outline: none;
+            transition: border 0.25s;
+        }
+        .note-field textarea:focus {
+            border-color: #0077b6;
+        }
+
+        .footer-info {
+            margin-top: 25px;
+            background: #f4f8fc;
+            padding: 15px 20px;
+            border-radius: 14px;
+            color: #2c3e50;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .webhook-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        .webhook-status .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #95a5a6;
+            display: inline-block;
+        }
+        .webhook-status .dot.active {
+            background: #2ecc71;
+        }
+
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 999;
+            font-weight: 600;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        .toast.error {
+            background: #e74c3c;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .order-table thead {
+                display: none;
+            }
+            .order-table tr {
+                display: flex;
+                flex-direction: column;
+                border: 2px solid #e0e6ed;
+                border-radius: 16px;
+                padding: 15px;
+                margin-bottom: 15px;
+                background: #fdfdfd;
+            }
+            .order-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 0;
+                gap: 10px;
+            }
+            .order-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #2c3e50;
+                min-width: 80px;
+            }
+            .header {
+                padding: 20px;
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
         }
     </style>
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
+
 <div class="container">
-    <div class="top-header">
-        <h1>📦 Kiểm kê kho <span style="font-size:0.8rem;">phiên bản mobile</span></h1>
-        <p>⬆️ Tải file Excel → nhập số lượng thực tế → tự động lưu & đối chiếu</p>
-    </div>
-
-    <div class="upload-card">
-        <label class="file-label" for="excelFile">📂 Chọn file Excel</label>
-        <input type="file" id="excelFile" accept=".xlsx, .xls" style="display:none;">
-        <span class="status-badge" id="fileStatus">Chưa tải</span>
-        <button id="exportBtnMobile" class="btn-small" style="background:#0b5e7c;">📄 Xuất BB</button>
-        <button id="resetAllBtnMobile" class="btn-small btn-reset">⟳ Reset</button>
-    </div>
-
-    <div class="sticky-tools">
-        <div class="search-box">
-            <input type="text" id="searchMobile" placeholder="🔍 Tìm mã, tên, kho..." autocomplete="off">
-        </div>
-        <div class="warehouse-filter">
-            <select id="warehouseMobile">
-                <option value="ALL">📁 Tất cả kho</option>
-            </select>
+    <div class="header">
+        <div class="logo-area">
+            <div class="logo-icon">🌊</div>
+            <h1>
+                PHIẾU YÊU CẦU ĐẶT VẬT TƯ
+                <small>Công ty Cổ phần Thực phẩm Quốc Tế Hải Châu</small>
+            </h1>
         </div>
     </div>
 
-    <div id="productList"></div>
-    <footer>📌 Dữ liệu tự động lưu vào máy (localStorage) - Tải lại trang vẫn giữ số kiểm kê. Bấm "Xuất BB" để lưu biên bản PDF.</footer>
+    <div class="form-body">
+        <form id="orderForm">
+            <table class="order-table" id="orderTable">
+                <thead>
+                    <tr>
+                        <th style="width:22%">Kho</th>
+                        <th style="width:28%">Mã hàng - Tên hàng</th>
+                        <th style="width:13%">ĐVT</th>
+                        <th style="width:13%">tồn cuối</th>
+                        <th style="width:8%"></th>
+                    </tr>
+                </thead>
+                <tbody id="orderRows">
+                    <!-- dynamic rows -->
+                </tbody>
+            </table>
+
+            <div class="action-bar">
+                <button type="button" class="btn btn-add" id="addRowBtn">
+                    ➕ Thêm mặt hàng
+                </button>
+                <button type="submit" class="btn btn-submit">
+                    📤 Gửi yêu cầu đặt hàng
+                </button>
+            </div>
+
+            <div class="note-field">
+                <label for="noteInput">📝 Ghi chú yêu cầu</label>
+                <textarea id="noteInput" placeholder="Nhập ghi chú (nếu có) ..."></textarea>
+            </div>
+        </form>
+
+        <div class="footer-info">
+            <div class="webhook-status">
+                <span class="dot" id="webhookDot"></span>
+                <span id="webhookLabel">Webhook N8N: Chưa cấu hình</span>
+            </div>
+            <div style="color:#5c6b7a;">
+                🕒 <span id="currentTime"></span>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-    // ==================== biến toàn cục ====================
-    let inventory = [];      // { warehouse, itemCode, itemName, unit, bookQty, actualQty, note }
-    let isLoadingFromStorage = false;
+    (function() {
+        // ========== DANH SÁCH VẬT TƯ TỪ FILE EXCEL ==========
+        const inventoryData = [
+            // Kho Hộp
+            { kho: "Kho Hộp", ma: "HG001", ten: "Hộp bánh Bơ sữa 265g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG002", ten: "Lốc bánh lễ", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG003", ten: "Quây bột canh", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG005", ten: "Hộp Mè Giòn 155g - Xanh", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG006", ten: "Hộp Mè Giòn 155g - Vàng", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG007", ten: "Hộp Khoai Tây 155g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG008", ten: "Hộp bánh Tolyno hạnh nhân hạt điều 365g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG009", ten: "Hộp bánh Tolyno Mè giòn 365g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG010", ten: "Hộp bánh Tolyno khoai tây 365g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG011", ten: "Hộp bánh quy thịnh vượng 160g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG013", ten: "Hộp lương khô 5*", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG014", ten: "Hộp bánh quy LOTUS 360g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG015", ten: "Hộp bánh quy Kim Phát Tài (Hoa Sen)", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG016", ten: "Hộp bánh lễ 41g", dvt: "Hộp" },
+            { kho: "Kho Hộp", ma: "HG018", ten: "Hộp bánh quy bơ hạt điều 405g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG019", ten: "Hộp bánh Tolyno Royal 410g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG020", ten: "Hộp bánh Flora màu vàng", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG021", ten: "Hộp bánh Flora màu đỏ", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG022", ten: "Hộp bánh Flora màu xanh tím", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG023", ten: "Hộp bánh Flora màu trắng", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG024", ten: "Hộp bánh Flora màu xanh ngọc", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG025", ten: "Hộp bánh Tolyno gấc giòn 250g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG026", ten: "Hộp bánh Tolyno mè giòn 250g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG027", ten: "Hộp bánh Tolyno khoai tây xanh 250g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG028", ten: "Hộp bánh Tolyno khoai tây đỏ 250g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG029", ten: "Hộp bánh Tolyno Mè Giòn Đèn Lồng 360g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG030", ten: "Hộp bánh Tolyno HNHĐ Đèn Lồng 360g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG031", ten: "Hộp bánh Tolyno Khoai Tây Đèn Lồng 360g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG032", ten: "Hộp bánh quy bơ Tolyno đỏ 350g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HG033", ten: "Hộp bánh quy bơ Tolyno vàng 350g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HN001", ten: "Hộp giấy của bánh Hộp sắt Tolyno 450g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HN002", ten: "Hộp giấy của bánh hộp sắt Tolyno 350g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HN003", ten: "Hộp giấy của bánh Hộp sắt Tolyno 180g", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS001", ten: "Hộp bánh Tolyno 350g - hộp sắt (phi 260)", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS002", ten: "Hộp bánh Tolyno 180g - hộp sắt (phi 170)", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS004", ten: "Hộp thiếc bán nguyệt Tolyno hoa sen 135g đỏ", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS005", ten: "Hộp thiếc bán nguyệt Tolyno hoa sen 135g vàng", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS006", ten: "Hộp thiếc bán nguyệt Tolyno hoa sen 135g xanh tím", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS007", ten: "Hộp sắt chữ nhật 350g đỏ", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS008", ten: "Hộp sắt chữ nhật 350g vàng", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS009", ten: "Hộp thiếc chữ nhật 155g đỏ", dvt: "Cái" },
+            { kho: "Kho Hộp", ma: "HS010", ten: "Hộp thiếc chữ nhật 155g vàng", dvt: "Cái" },
+            // Kho hương liệu - phụ gia
+            { kho: "Kho hương liệu - phụ gia", ma: "HL003", ten: "Hương bơ bột - GB30616 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL005", ten: "Hương dừa bột - 9763 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL006", ten: "Hương dừa bột - 1003 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL007", ten: "Hương dừa bột - PF5048 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL008", ten: "Hương khoai bột - 1031 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL009", ten: "Hương Vanillin bột(Gấu trắng) - GB2760 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL010", ten: "Hương Cheese bột - 20130926A - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL011", ten: "Hương sầu riêng bột - XT", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL012", ten: "Hương thịt bò bột - 590577CB - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL013", ten: "Hương thịt lợn bột - 6109724 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL015", ten: "Hương sữa nước - 1001 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL016", ten: "Hương sữa đặc - 322B - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL018", ten: "Hương sữa nước thỏ trắng - 1120 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL019", ten: "Hương bơ nước - 1006 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL021", ten: "Hương bơ nước - 7272 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL022", ten: "Hương dừa nước - Z195-25- AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL023", ten: "Hương trứng nước - Z904-1 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL025", ten: "Hương cốm nước - A0983095 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL028", ten: "Hương việt quất - B137-17 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL029", ten: "Hương gạo nước - 671317 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL030", ten: "Hương cam nước - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL031", ten: "Hương sầu riêng nước - DU8202 - XT", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL032", ten: "Phẩm vàng chanh (Tarttrazine) - 19140 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL033", ten: "Phẩm màu Socola", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL034", ten: "Enzyme bột - 76774-43-1 - Brentage", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL035", ten: "SAPP - 21T2", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL036", ten: "MCP - 10200", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL037", ten: "Nấm men - GB/T208862 - Brentage", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL038", ten: "Điều vị bánh - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL040", ten: "Cúp giấy", dvt: "Cọc" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL042", ten: "Chất điều vị I+G", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL043", ten: "Glycerin - G9954 - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL044", ten: "Kem vani", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL045", ten: "Bột béo Tài Ký", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL046", ten: "Bột sữa bò", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL047", ten: "Tinh dầu đậu xanh 812822L - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL048", ten: "Tinh dầu ngô", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL049", ten: "Tinh dầu khoai môn", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL051", ten: "Hạt điều hạt to", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL052", ten: "Hạt điều hạt nhỏ", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL053", ten: "Hương khoai tây 1009 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL059", ten: "Hạt hạnh nhân", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL061", ten: "Hương phô mai - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL062", ten: "Hương ngô GJ6001 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL063", ten: "Hương bột ngô 0502 - AK", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL067", ten: "Nở Lon", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL068", ten: "Bột đậu xanh", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL069", ten: "Sô Đa", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL070", ten: "Dầu bơ( thùng sắt)", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL071", ten: "Hạt tiêu đen", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL073", ten: "Khai", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL074", ten: "Bột biến tính - TK14 (100%)", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL075", ten: "ĐƯỜNG TỔNG HỢP", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL076", ten: "Bột ớt", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL077", ten: "Lecithin", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL078", ten: "Cơm Dừa Fine-High Fat", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL079", ten: "Bột Tỏi", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL081", ten: "Men định hình - Papain", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL082", ten: "Trứng gà", dvt: "Quả" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL083", ten: "Hút ẩm", dvt: "Gói" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL084", ten: "Sodium (INS 223) - Chất xử lý bột - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL085", ten: "Dầu ăn", dvt: "Lít" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL087", ten: "Bò Quả Cầu - 4837", dvt: "Chai" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL093", ten: "Hương hành", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL094", ten: "Tinh bột ngô - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL095", ten: "Sữa Pro (35%) - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL096", ten: "Hương sữa ngô - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL097", ten: "Hương Socola nước -1229 - N", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL102", ten: "Tinh Dầu Cà Phê", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL104", ten: "Caramen màu", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL106", ten: "Xoài lát", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL111", ten: "Hương sữa bột - P1402K - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL112", ten: "Hương Seasame (vừng) - P1061H - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL113", ten: "Hương xoài - P1135K - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL114", ten: "Hương sữa nước - P1001K - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL115", ten: "Bột nếp", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL116", ten: "Bột váng sữa", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL122", ten: "Hương Vanilia nước - ML", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL124", ten: "Vừng Đen", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL127", ten: "Đường Maltitol", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL128", ten: "Chống vón", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL129", ten: "Sữa bột Whey", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL130", ten: "Rong biển", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL131", ten: "Hương bơ nước - P1189K - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL132", ten: "Bột trà xanh matcha Vụ Thu - BTX - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL133", ten: "Hương Trà Xanh - P1130K - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL134", ten: "Kem socola", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL136", ten: "Hương trà xanh Matcha Powder BB - P5248B - PM", dvt: "kg" },
+            { kho: "Kho hương liệu - phụ gia", ma: "HL138", ten: "Bột sữa bò Dairy Food - ML", dvt: "kg" },
+            // Kho màng
+            { kho: "Kho màng", ma: "MA001", ten: "Màng bột canh i ốt 190g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA002", ten: "Màng bột canh thường 190g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA003", ten: "Màng bột canh i ốt - 3 Tốt - 180g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA005", ten: "Màng bột canh thường 3 TỐT 190g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA006", ten: "Màng bột canh thường IHC 190g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA007", ten: "Màng bột canh i ốt IHC 190g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA008", ten: "Màng lương khô đậu xanh 60g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA009", ten: "Màng lương khô tổng hợp 60g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA010", ten: "Màng lương khô ca cao 60g", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA012", ten: "Màng bánh Tolyno Nền Xanh", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA013", ten: "Màng bánh Tolyno Nền Vàng", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA014", ten: "Màng bánh Tolyno Patato nguyên vị( nền vàng)", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA015", ten: "màng bánh Tolyno Potato vị bò bít tết( nến xanh)", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA016", ten: "Màng bột canh thường 3 TỐT 190g VNP", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA017", ten: "Màng bột canh 3 TỐT i ốt 190g VNP", dvt: "m2" },
+            { kho: "Kho màng", ma: "MA019", ten: "Màng Bảo Châu nền vàng trong", dvt: "kg" },
+            { kho: "Kho màng", ma: "MA020", ten: "Màng Bảo Châu nền xanh rêu", dvt: "kg" },
+            { kho: "Kho màng", ma: "MA021", ten: "Màng Bảo Châu nền xanh tím", dvt: "kg" },
+            { kho: "Kho màng", ma: "MA022", ten: "Màng Bảo Châu nền tím", dvt: "kg" },
+            { kho: "Kho màng", ma: "MA023", ten: "Màng bánh bạc (quy dừa)", dvt: "m2" },
+            // Kho NL Phụ Kiện
+            { kho: "Kho NL Phụ Kiện", ma: "PK01", ten: "Băng dính to", dvt: "Cây" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK02", ten: "Cuộn Mực Máy Bột Canh", dvt: "Cuốn" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK03", ten: "Túi ni lông 60x90", dvt: "kg" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK04", ten: "Giấy nến", dvt: "Tờ" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK05", ten: "Dung môi", dvt: "Bình" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK06", ten: "Nước rửa SFC 1000", dvt: "Bình" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK07", ten: "Băng dính nhỏ", dvt: "Cái" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK08", ten: "Túi ni lông 28x40", dvt: "kg" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK10", ten: "Mực in 1014", dvt: "Bình" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK12", ten: "Cuộn Mực Máy Lương Khô", dvt: "Cuốn" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK13", ten: "Giấy nến hộp sắt", dvt: "Tờ" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK16", ten: "Băng dính dẻo PVC dán hộp sắt", dvt: "Cái" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK18", ten: "Túi ni lông 56x65", dvt: "kg" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK19", ten: "Băng dính to 1Kg", dvt: "Cây" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK20", ten: "Keo hạt", dvt: "kg" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK21", ten: "Keo nến", dvt: "kg" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK23", ten: "Túi ni lông 28x51", dvt: "kg" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK26", ten: "Tem dán bánh que", dvt: "Chiếc" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK27", ten: "Tem dán bánh mè", dvt: "Chiếc" },
+            { kho: "Kho NL Phụ Kiện", ma: "PK28", ten: "Tem dán hộp bánh que", dvt: "Cái" },
+            // Kho Nguyên Liệu Chính
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC03", ten: "Bột ca cao xay", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC05", ten: "Bột mỳ BP9", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC09", ten: "Dầu bơ thay thế 20kg/1 thùng", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC11", ten: "Dầu cọ tinh luyện 18kg/1 thùng", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC12", ten: "Đường GLUCO LIHUA", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC14", ten: "Đường vàng", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC15", ten: "Muối hạt sạch", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC16", ten: "Muối tinh sấy", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC17", ten: "Nha nước 78-80kg/thùng", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC18", ten: "Shortening 25 kg/ 1 thùng", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC20", ten: "Mì chính Meihua 25Kg", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC24", ten: "Đường tinh luyện KTM (rắc bánh)", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "NLC25", ten: "KIO3 - i Ốt", dvt: "kg" },
+            { kho: "Kho Nguyên Liệu Chính", ma: "VT00713", ten: "Kích mùi", dvt: "Hộp" },
+            // Kho Túi + Khay
+            { kho: "Kho Túi + Khay", ma: "KH002", ten: "Khay bánh LOTUS 360G (M37 6N-SH)", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "KH003", ten: "Khay bánh 265g (M319)", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "KH004", ten: "Khay bánh túi 4N-VL (Khay 275g)", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "KH005", ten: "Khay bánh Bạc 160g", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "KH006", ten: "Khay bánh Royal 410g (M361)", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "KH007", ten: "Khay bánh Flora (M367)", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "KH008", ten: "Khay bánh quy bơ 350g (M411)", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "KH009", ten: "Khay bánh hộp sắt chữ nhật 350g", dvt: "kg" },
+            { kho: "Kho Túi + Khay", ma: "TU001", ten: "Túi muối hạt sạch 900g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU002", ten: "Túi bột canh 3 Tốt 900g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU003", ten: "Túi bột canh thịt", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU004", ten: "Túi lương khô 5*", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU005", ten: "Túi lương khô mini 150g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU007", ten: "Túi bạc LOTUS 310g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU008", ten: "Túi bánh quy vị cam 120g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU009", ten: "Túi bánh que Tolyno Stick biscuit 80g (mv0246)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU010", ten: "Túi bánh Tolyno Potato vị bò bít tết( nền xanh)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU011", ten: "Túi bánh Tolyno Potato nguyên vị ( nền vàng)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU012", ten: "Túi bánh quy dừa( bánh bạc)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU013", ten: "Túi LK mini Bảo châu - Vàng 250g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU014", ten: "Túi LK Mini Bảo Châu Ngũ Cốc (xanh tím)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU015", ten: "Túi LK Mini Bảo Châu Hạt óc Chó (đỏ)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU016", ten: "Túi LK mini Bảo châu - Xanh 250g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU017", ten: "Túi bột canh thịt VNP", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU018", ten: "Túi LK mini Hạnh Nhân Bảo Châu 400g (nền xanh tím)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU019", ten: "Túi LK mini Gạo Nếp Rong Biển Bảo Châu 400g (nền vàng nhạt)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU020", ten: "Túi LK mini Matcha Bảo Châu 400g (nền xanh lá)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU021", ten: "Túi LK mini Choco Chip 400g (nền nâu)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU022", ten: "Túi LK mini Hạt Điều Bảo châu 400g (nền cam)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU023", ten: "Túi LK mini Gạo Lứt Bảo Châu 400g (nền tím)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU024", ten: "Túi LK mini Ngũ Cốc Bảo Châu 400g (nền xanh lá đậm)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU025", ten: "Túi LK mini Hạt Óc Chó Bảo Châu 400g (nền đỏ đun)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU026", ten: "Túi LK mini Cà Phê Bảo Châu 400g (nền nâu)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU027", ten: "Túi LK mini Mix vị Bảo Châu 400g (nền trắng)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU028", ten: "Bộ lọ đựng bánh que", dvt: "Bộ" },
+            { kho: "Kho Túi + Khay", ma: "TU030", ten: "Túi MINI viên năng lượng Bảo Châu Hạnh Nhân (màu xanh tím)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU031", ten: "Túi MINI viên năng lượng Bảo Châu Gạo Nếp Rong Biển (màu vàng nhạt)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU032", ten: "Túi MINI viên năng lượng Bảo Châu Matcha (màu xanh lá)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU033", ten: "Túi MINI viên năng lượng Bảo Châu Choco Chip (màu nâu)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU034", ten: "Túi MINI viên năng lượng Bảo Châu Hạt Điều (màu vàng)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU035", ten: "Túi MINI viên năng lượng Bảo Châu Gạo Lứt (màu tím)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU036", ten: "Túi MINI viên năng lượng Bảo Châu Ngũ Cốc (màu xanh)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU037", ten: "Túi MINI viên năng lượng Bảo Châu Óc Chó (màu đỏ)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU038", ten: "Túi MINI viên năng lượng Bảo Châu Cà Phê (màu nâu đen)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU039", ten: "Túi bánh mè giòn Tolyno Sesame 220g (mv0239)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU040", ten: "Túi bánh bắp Tolyno Crispy corn 220g (mv0253)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU041", ten: "Túi bánh gấc Tolyno cracker 220g (mv0260)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU043", ten: "Túi MINI viên năng lượng Hải Châu Hạnh Nhân (màu xanh tím)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU044", ten: "Túi MINI viên năng lượng Hải Châu Gạo Nếp Rong Biển (màu vàng nhạt)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU045", ten: "Túi MINI viên năng lượng Hải Châu Matcha (màu xanh lá)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU046", ten: "Túi MINI viên năng lượng Hải Châu Choco Chip (màu nâu)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU047", ten: "Túi MINI viên năng lượng Hải Châu Hạt Điều (màu vàng)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU048", ten: "Túi MINI viên năng lượng Hải Châu Gạo Lứt (màu tím)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU049", ten: "Túi MINI viên năng lượng Hải Châu Ngũ Cốc (màu xanh)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU050", ten: "Túi MINI viên năng lượng Hải Châu Óc Chó (màu đỏ)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU051", ten: "Túi MINI viên năng lượng Hải Châu Cà Phê (màu nâu đen)", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TU052", ten: "Túi LK Hạnh Nhân Hải Châu 280g (nền xanh tím)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU053", ten: "Túi LK Gạo Nếp Rong Biển Hải Châu 280g (nền vàng nhạt)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU054", ten: "Túi LK Matcha Hải Châu 280g (nền xanh lá)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU055", ten: "Túi LK Choco Chip Hải Châu 280g (nền nâu)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU056", ten: "Túi LK Hạt Điều Hải Châu 280g (nền cam)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU057", ten: "Túi LK Gạo Lứt Hải Châu 280g (nền tím)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU058", ten: "Túi LK Ngũ Cốc Hải Châu 280g (nền xanh lá đậm)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU059", ten: "Túi LK Hạt Óc Chó Hải Châu 280g (nền đỏ đun)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU060", ten: "Túi LK Cà Phê Hải Châu 280g (nền nâu)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TU061", ten: "Túi LK Mix vị Hải Châu 280g (nền trắng)", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX001", ten: "Túi xách giấy của bánh Hộp sắt Tolyno tròn 350g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX002", ten: "Túi xách giấy Bảo Châu Đèn lồng màu đỏ", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX003", ten: "Túi xách giấy Bảo Châu Đèn lồng màu vàng", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX004", ten: "Túi xách giấy Bảo Châu Đèn lồng màu xanh lá", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX005", ten: "Túi xách giấy Tolyno Royal 410g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX006", ten: "Túi xách giấy của bánh Hộp sắt Tolyno 450g", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX007", ten: "Túi xách giấy của bánh Hộp sắt chữ nhật Tolyno 350g đỏ", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX008", ten: "Túi xách giấy của bánh Hộp sắt chữ nhật Tolyno 350g vàng", dvt: "Túi" },
+            { kho: "Kho Túi + Khay", ma: "TX009", ten: "Túi bánh Tolyno Mè Giòn", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TX010", ten: "Túi bánh Tolyno Khoai Tây", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TX011", ten: "Túi bánh Tolyno Hạnh Nhân - Hạt Điều", dvt: "Cái" },
+            { kho: "Kho Túi + Khay", ma: "TX012", ten: "Túi quai xách - Lotus", dvt: "Cái" },
+            // Kho thùng
+            { kho: "Kho thùng", ma: "TH003", ten: "Thùng carton lương khô 5*", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH004", ten: "Thùng carton Lương Khô 150g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH005", ten: "Thùng carton bánh Hộp sắt Tolyno 180g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH006", ten: "Thùng carton Kim Phát Tài 55g (Hoa sen)", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH007", ten: "Thùng carton bánh quy Kim Phát Tài 55g (Ông Phật)", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH008", ten: "Thùng carton bột canh i ốt 190g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH009", ten: "Thùng carton bột canh thường 190g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH010", ten: "Thùng bột canh thường IHC 190", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH011", ten: "Thùng bột canh i ốt IHC 190g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH012", ten: "Thùng bột canh i ốt 3 TỐT 180g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH013", ten: "Thùng bột canh 3 TỐT i ốt 190g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH014", ten: "Thùng bột canh thường 3 TỐT 190g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH015", ten: "Thùng bột canh thịt 450g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH016", ten: "Thùng carton bột canh 3 tốt 900g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH017", ten: "Thùng carton bánh Hộp sắt Tolyno 350g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH018", ten: "Thùng bánh Hộp sắt Tolyno 450g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH019", ten: "Thùng carton LK mini bảo châu 140g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH020", ten: "Thùng bánh Tolyno 365g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH021", ten: "Thùng bánh Tolyno 265g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH022", ten: "Thùng bánh quy thịnh vượng 160g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH023", ten: "Thùng bánh quy LOTUS 360g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH024", ten: "Thùng bánh quy cam 120g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH025", ten: "Thùng bánh quy bơ hạt điều 405g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH026", ten: "Thùng bánh Que 230g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH027", ten: "Thùng bánh Lốc 41g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH028", ten: "Thùng bánh Tolyno Crispy Cracker 250g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH029", ten: "Thùng bánh 155g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH030", ten: "Thùng hộp sắt 850g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH031", ten: "Thùng carton bánh Tolyno gói 275g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH032", ten: "Thùng bánh bạc vuông 160g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH033", ten: "Thùng carton Lương khô 60g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH034", ten: "Thùng bánh Tolyno tích 8 loại 5Kg", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH036", ten: "Thùng bánh Tolyno Royal 410g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH037", ten: "Thùng bánh Flora", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH038", ten: "Thùng bánh Tolyno 235g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH039", ten: "Thùng bánh Que - túi nhỏ", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH040", ten: "Thùng bánh quy Tolyno Đèn Lồng 360g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH041", ten: "Thùng trắng", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH042", ten: "Thùng carton bánh quy bơ Tolyno 350g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH043", ten: "Thùng carton bánh bán nguyệt Tolyno 135g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH044", ten: "Thùng bánh hộp sắt chữ nhật 350g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH045", ten: "Thùng bánh hộp thiếc chữ nhật 155g", dvt: "Cái" },
+            { kho: "Kho thùng", ma: "TH056", ten: "Thùng Lương Khô Hải Châu 280g", dvt: "Cái" }
+        ];
 
-    // DOM elements
-    const excelFileInput = document.getElementById('excelFile');
-    const fileStatusSpan = document.getElementById('fileStatus');
-    const searchInput = document.getElementById('searchMobile');
-    const warehouseSelect = document.getElementById('warehouseMobile');
-    const productListDiv = document.getElementById('productList');
-    const exportBtn = document.getElementById('exportBtnMobile');
-    const resetBtn = document.getElementById('resetAllBtnMobile');
+        // Lấy danh sách kho unique
+        const khoList = [...new Set(inventoryData.map(item => item.kho))];
 
-    // ==================== LocalStorage ====================
-    function saveToLocalStorage() {
-        if (inventory.length > 0) {
-            localStorage.setItem('inventoryData', JSON.stringify(inventory));
-        }
-    }
+        // Webhook URL - thay đổi URL này thành webhook N8N của bạn
+        const WEBHOOK_URL = "https://your-n8n-instance/webhook/order-vat-tu";
 
-    function loadFromLocalStorage() {
-        const saved = localStorage.getItem('inventoryData');
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                if (Array.isArray(parsed) && parsed.length > 0) {
-                    inventory = parsed;
-                    isLoadingFromStorage = true;
-                    updateWarehouseFilter();
-                    renderProductCards();
-                    fileStatusSpan.innerText = `📱 Đã khôi phục (${inventory.length})`;
-                    return true;
-                }
-            } catch(e) {}
-        }
-        return false;
-    }
+        let rowCounter = 0;
 
-    // ==================== Xử lý file Excel ====================
-    function parseExcelData(workbook) {
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
-        let items = [];
-        let currentWarehouse = "";
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-            if (!row || row.length < 6) continue;
-            const colA = (row[0] || "").toString().trim();
-            if (colA.startsWith("Tên kho") && colA.includes(":")) {
-                let raw = colA.replace(/^Tên kho\s*:\s*/, "").trim();
-                currentWarehouse = raw.split("(")[0].trim();
-                continue;
-            }
-            if (!currentWarehouse) continue;
-            let whFromColB = (row[1] || "").toString().trim();
-            let itemCode = (row[2] || "").toString().trim();
-            let itemName = (row[3] || "").toString().trim();
-            let unit = (row[4] || "").toString().trim();
-            let qtyRaw = (row[5] !== undefined && row[5] !== "") ? row[5] : 0;
-            let bookQty = parseFloat(qtyRaw);
-            if (isNaN(bookQty)) bookQty = 0;
-            if (itemCode === "" && itemName === "") continue;
-            if (itemCode.toLowerCase().includes("số dòng")) continue;
-            let warehouse = (whFromColB && whFromColB !== "") ? whFromColB : currentWarehouse;
-            items.push({
-                warehouse: warehouse,
-                itemCode: itemCode,
-                itemName: itemName,
-                unit: unit,
-                bookQty: bookQty,
-                actualQty: bookQty,
-                note: ""
+        // DOM elements
+        const orderRows = document.getElementById('orderRows');
+        const addRowBtn = document.getElementById('addRowBtn');
+        const orderForm = document.getElementById('orderForm');
+        const toast = document.getElementById('toast');
+        const webhookDot = document.getElementById('webhookDot');
+        const webhookLabel = document.getElementById('webhookLabel');
+        const currentTimeSpan = document.getElementById('currentTime');
+
+        // Cập nhật đồng hồ
+        function updateTime() {
+            const now = new Date();
+            currentTimeSpan.textContent = now.toLocaleString('vi-VN', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
             });
         }
-        return items;
-    }
+        updateTime();
+        setInterval(updateTime, 1000);
 
-    function handleExcelFile(file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
-            try {
-                const newItems = parseExcelData(workbook);
-                if (newItems.length === 0) throw new Error("Không có dữ liệu hàng");
-                inventory = newItems;
-                saveToLocalStorage();
-                updateWarehouseFilter();
-                renderProductCards();
-                fileStatusSpan.innerText = `✅ Đã tải: ${inventory.length} mặt hàng`;
-                searchInput.value = '';
-                warehouseSelect.value = 'ALL';
-            } catch (err) {
-                alert("Lỗi đọc file: " + err.message);
-                fileStatusSpan.innerText = "❌ File sai cấu trúc";
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    }
-
-    // ==================== render dạng card (mobile) ====================
-    function renderProductCards() {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        const selectedWh = warehouseSelect.value;
-
-        let filtered = inventory.filter(item => {
-            if (selectedWh !== "ALL" && item.warehouse !== selectedWh) return false;
-            if (searchTerm !== "") {
-                return item.itemCode.toLowerCase().includes(searchTerm) ||
-                       item.itemName.toLowerCase().includes(searchTerm) ||
-                       item.warehouse.toLowerCase().includes(searchTerm);
-            }
-            return true;
-        });
-
-        if (filtered.length === 0) {
-            productListDiv.innerHTML = `<div class="empty-state">🔍 Không tìm thấy mặt hàng nào.</div>`;
-            return;
+        // Kiểm tra webhook URL đã được cấu hình chưa
+        if (WEBHOOK_URL && !WEBHOOK_URL.includes('your-n8n-instance')) {
+            webhookDot.classList.add('active');
+            webhookLabel.textContent = 'Webhook N8N: Sẵn sàng';
+        } else {
+            webhookLabel.textContent = 'Webhook N8N: Chưa cấu hình (vui lòng cập nhật URL)';
         }
 
-        let html = '';
-        filtered.forEach((item, idx) => {
-            const diff = item.actualQty - item.bookQty;
-            let diffClass = "zero-badge";
-            let diffSign = "0";
-            if (diff > 0) { diffClass = "positive"; diffSign = `+${diff}`; }
-            else if (diff < 0) { diffClass = "negative"; diffSign = `${diff}`; }
-            else diffSign = "0";
+        // Toast notification
+        function showToast(message, isError = false) {
+            toast.textContent = message;
+            toast.className = 'toast' + (isError ? ' error' : '');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3500);
+        }
 
-            // highlight tìm kiếm (nhẹ)
-            let displayName = item.itemName;
-            let displayCode = item.itemCode;
-            if (searchTerm) {
-                const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-                displayName = displayName.replace(regex, `<mark style="background:#fef08a;">$1</mark>`);
-                displayCode = displayCode.replace(regex, `<mark style="background:#fef08a;">$1</mark>`);
-            }
+        // Tạo option cho select kho
+        function createKhoOptions(selectedKho = '') {
+            let html = '<option value="">🏢 Chọn kho...</option>';
+            khoList.forEach(kho => {
+                const selected = kho === selectedKho ? ' selected' : '';
+                html += `<option value="${kho}"${selected}>${kho}</option>`;
+            });
+            return html;
+        }
 
-            html += `
-                <div class="product-card" data-code="${item.itemCode}" data-wh="${item.warehouse}">
-                    <div class="card-header">
-                        <span class="code">${escapeHtml(displayCode)}</span>
-                        <span class="warehouse-tag">🏚️ ${escapeHtml(item.warehouse)}</span>
+        // Tạo option cho select mã hàng (filter theo kho)
+        function createMaHangOptions(kho, selectedMa = '') {
+            const filtered = inventoryData.filter(item => item.kho === kho);
+            let html = '<option value="">📦 Chọn mã hàng...</option>';
+            filtered.forEach(item => {
+                const selected = item.ma === selectedMa ? ' selected' : '';
+                html += `<option value="${item.ma}" data-ten="${item.ten}" data-dvt="${item.dvt}"${selected}>${item.ma} - ${item.ten}</option>`;
+            });
+            return html;
+        }
+
+        // Tạo một dòng mới
+        function createRow(kho = '', ma = '', soluong = '', dvt = '') {
+            rowCounter++;
+            const row = document.createElement('tr');
+            row.setAttribute('data-row-id', rowCounter);
+            row.innerHTML = `
+                <td data-label="Kho">
+                    <select class="kho-select" name="kho_${rowCounter}">
+                        ${createKhoOptions(kho)}
+                    </select>
+                </td>
+                <td data-label="Mã hàng - Tên hàng">
+                    <select class="ma-select" name="ma_${rowCounter}">
+                        ${kho ? createMaHangOptions(kho, ma) : '<option value="">📦 Vui lòng chọn kho trước</option>'}
+                    </select>
+                </td>
+                <td data-label="ĐVT">
+                    <div class="dvt-cell">
+                        <span class="dvt-display">${dvt || '--'}</span>
                     </div>
-                    <div class="product-name">${escapeHtml(displayName)}</div>
-                    <div class="book-row">
-                        <span class="book-label">📄 Tồn sổ sách</span>
-                        <span class="book-value">${item.bookQty.toLocaleString()} ${item.unit}</span>
-                    </div>
-                    <div class="actual-input-area">
-                        <label>🔎 Kiểm kê thực tế</label>
-                        <input type="number" step="any" class="actual-mobile-input" value="${item.actualQty}" data-idx="${idx}" data-warehouse="${item.warehouse}" data-code="${item.itemCode}">
-                    </div>
-                    <div class="diff-row">
-                        <span>📊 Chênh lệch</span>
-                        <span class="diff-badge ${diffClass}">${diffSign}</span>
-                    </div>
-                    <input type="text" class="note-input" placeholder="✏️ Ghi chú nguyên nhân (VD: xuất chưa kịp nhập...)" value="${escapeHtml(item.note)}" data-note-idx="${idx}">
-                </div>
+                </td>
+                <td data-label="tồn cuối">
+                    <input type="number" class="soluong-input" name="soluong_${rowCounter}" 
+                           min="0.01" step="any" placeholder="Nhập tồn cuối" value="${soluong}">
+                </td>
+                <td>
+                    <button type="button" class="btn-remove-row" title="Xóa dòng">✕</button>
+                </td>
             `;
-        });
-        productListDiv.innerHTML = html;
 
-        // gắn sự kiện cho các input thay đổi số lượng thực tế
-        document.querySelectorAll('.actual-mobile-input').forEach(input => {
-            input.addEventListener('change', (e) => {
-                const warehouse = input.getAttribute('data-warehouse');
-                const code = input.getAttribute('data-code');
-                let newVal = parseFloat(e.target.value);
-                if (isNaN(newVal)) newVal = 0;
-                const item = inventory.find(i => i.warehouse === warehouse && i.itemCode === code);
-                if (item) {
-                    item.actualQty = newVal;
-                    saveToLocalStorage();
-                    renderProductCards();  // cập nhật lại chênh lệch
-                }
-            });
-        });
-        // gắn sự kiện ghi chú
-        document.querySelectorAll('.note-input').forEach(note => {
-            note.addEventListener('change', (e) => {
-                const idxAttr = note.getAttribute('data-note-idx');
-                if (idxAttr !== null && inventory[parseInt(idxAttr)]) {
-                    inventory[parseInt(idxAttr)].note = e.target.value;
-                    saveToLocalStorage();
+            // Event listeners cho dòng
+            const khoSelect = row.querySelector('.kho-select');
+            const maSelect = row.querySelector('.ma-select');
+            const dvtDisplay = row.querySelector('.dvt-display');
+            const removeBtn = row.querySelector('.btn-remove-row');
+
+            khoSelect.addEventListener('change', function() {
+                const selectedKho = this.value;
+                if (selectedKho) {
+                    maSelect.innerHTML = createMaHangOptions(selectedKho);
                 } else {
-                    // fallback tìm theo mã (dự phòng)
-                    const parent = note.closest('.product-card');
-                    if(parent) {
-                        const code = parent.getAttribute('data-code');
-                        const wh = parent.getAttribute('data-wh');
-                        const item = inventory.find(i => i.warehouse === wh && i.itemCode === code);
-                        if(item) { item.note = e.target.value; saveToLocalStorage(); }
-                    }
+                    maSelect.innerHTML = '<option value="">📦 Vui lòng chọn kho trước</option>';
                 }
+                dvtDisplay.textContent = '--';
+            });
+
+            maSelect.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const dvtValue = selectedOption.getAttribute('data-dvt') || '--';
+                const tenValue = selectedOption.getAttribute('data-ten') || '';
+                dvtDisplay.textContent = dvtValue;
+            });
+
+            removeBtn.addEventListener('click', function() {
+                const totalRows = orderRows.querySelectorAll('tr').length;
+                if (totalRows <= 1) {
+                    showToast('⚠️ Phải có ít nhất một mặt hàng trong phiếu yêu cầu.', true);
+                    return;
+                }
+                row.style.opacity = '0';
+                row.style.transition = 'opacity 0.2s';
+                setTimeout(() => {
+                    row.remove();
+                }, 200);
+            });
+
+            return row;
+        }
+
+        // Thêm dòng mới
+        function addRow(kho = '', ma = '', soluong = '', dvt = '') {
+            const row = createRow(kho, ma, soluong, dvt);
+            orderRows.appendChild(row);
+            // Animation
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(10px)';
+            row.style.transition = 'all 0.3s ease';
+            setTimeout(() => {
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        // Khởi tạo 2 dòng mặc định
+        addRow();
+        addRow();
+
+        // Nút thêm dòng
+        addRowBtn.addEventListener('click', () => addRow());
+
+        // Xử lý submit form
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const rows = orderRows.querySelectorAll('tr');
+            const orderItems = [];
+            let hasError = false;
+
+            rows.forEach(row => {
+                const khoSelect = row.querySelector('.kho-select');
+                const maSelect = row.querySelector('.ma-select');
+                const soluongInput = row.querySelector('.soluong-input');
+                const dvtDisplay = row.querySelector('.dvt-display');
+
+                const kho = khoSelect ? khoSelect.value : '';
+                const maOption = maSelect ? maSelect.options[maSelect.selectedIndex] : null;
+                const ma = maOption ? maOption.value : '';
+                const ten = maOption ? maOption.getAttribute('data-ten') : '';
+                const dvt = dvtDisplay ? dvtDisplay.textContent : '';
+                const soluong = soluongInput ? parseFloat(soluongInput.value) : 0;
+
+                if (!kho || !ma) {
+                    hasError = true;
+                    return;
+                }
+                if (!soluong || soluong <= 0) {
+                    hasError = true;
+                    soluongInput.style.borderColor = '#e74c3c';
+                    return;
+                }
+                soluongInput.style.borderColor = '#e0e6ed';
+
+                orderItems.push({
+                    kho: kho,
+                    ma_hang: ma,
+                    ten_hang: ten,
+                    dvt: dvt,
+                    so_luong: soluong
+                });
+            });
+
+            if (hasError || orderItems.length === 0) {
+                showToast('⚠️ Vui lòng điền đầy đủ thông tin cho tất cả các dòng (chọn kho, mã hàng và tồn cuối > 0).', true);
+                return;
+            }
+
+            const note = document.getElementById('noteInput').value.trim();
+            const payload = {
+                thoi_gian: new Date().toISOString(),
+                don_vi: 'Công ty Cổ phần Thực phẩm Quốc Tế Hải Châu',
+                loai: 'YEU_CAU_DAT_VAT_TU',
+                ghi_chu: note || '',
+                danh_sach_vat_tu: orderItems
+            };
+
+            // Gửi đến webhook N8N
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    showToast('✅ Đã gửi yêu cầu đặt vật tư thành công! Hệ thống sẽ gửi thông báo qua Telegram/Zalo.');
+                    // Reset form
+                    orderRows.innerHTML = '';
+                    addRow();
+                    addRow();
+                    document.getElementById('noteInput').value = '';
+                } else {
+                    throw new Error('Phản hồi không hợp lệ từ webhook.');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi gửi webhook:', error);
+                // Nếu lỗi kết nối, vẫn hiển thị dữ liệu đã tạo để test
+                console.log('Payload đã tạo:', payload);
+                showToast('⚠️ Không thể kết nối webhook N8N. Vui lòng kiểm tra lại URL webhook hoặc kết nối mạng. Dữ liệu đã được in ra console.', true);
             });
         });
-    }
 
-    function updateWarehouseFilter() {
-        const whSet = [...new Set(inventory.map(i => i.warehouse))];
-        warehouseSelect.innerHTML = '<option value="ALL">📁 Tất cả kho</option>';
-        whSet.sort().forEach(wh => {
-            warehouseSelect.innerHTML += `<option value="${escapeHtml(wh).replace(/"/g, '&quot;')}">🏢 ${escapeHtml(wh)}</option>`;
-        });
-    }
-
-    function escapeHtml(str) {
-        if(!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if(m === '&') return '&amp;';
-            if(m === '<') return '&lt;';
-            if(m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    // reset tất cả về sổ sách
-    function resetAllToBook() {
-        if(inventory.length === 0) return;
-        inventory.forEach(item => {
-            item.actualQty = item.bookQty;
-            item.note = "";
-        });
-        saveToLocalStorage();
-        renderProductCards();
-        fileStatusSpan.innerText = `⟳ Đã reset về tồn sổ (${inventory.length} món)`;
-    }
-
-    // Xuất biên bản (đẹp, giống như bảng)
-    function exportReport() {
-        if(inventory.length === 0) {
-            alert("Chưa có dữ liệu kiểm kê. Hãy tải file Excel trước.");
-            return;
-        }
-        const now = new Date();
-        const datetimeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}`;
-        let rows = '';
-        let totalBook = 0, totalActual = 0;
-        inventory.forEach((item, i) => {
-            const diff = item.actualQty - item.bookQty;
-            totalBook += item.bookQty;
-            totalActual += item.actualQty;
-            rows += `<tr>
-                <td>${i+1}</td>
-                <td>${escapeHtml(item.warehouse)}</td>
-                <td>${escapeHtml(item.itemCode)}</td>
-                <td>${escapeHtml(item.itemName)}</td>
-                <td>${escapeHtml(item.unit)}</td>
-                <td>${item.bookQty.toLocaleString()}</td>
-                <td>${item.actualQty.toLocaleString()}</td>
-                <td style="color:${diff>0?'#15803d':(diff<0?'#b91c1c':'#2c7da0')}">${diff>0?'+':''}${diff.toLocaleString()}</td>
-                <td>${escapeHtml(item.note)}</td>
-            </tr>`;
-        });
-        const totalDiff = totalActual - totalBook;
-        const reportHtml = `<!DOCTYPE html>
-        <html><head><meta charset="UTF-8"><title>Biên bản kiểm kê kho</title>
-        <style>body{font-family: Arial; margin:20px;} table{border-collapse:collapse; width:100%;} th,td{border:1px solid #aaa; padding:6px; font-size:12px;} th{background:#eef2f5;} .sign{display:flex; justify-content:space-between; margin-top:40px;}</style></head>
-        <body><h2 style="text-align:center;">BIÊN BẢN KIỂM KÊ TỒN KHO</h2><p>Ngày lập: ${datetimeStr}</p>
-        <table><thead><tr><th>STT</th><th>Kho</th><th>Mã hàng</th><th>Tên hàng</th><th>ĐVT</th><th>Tồn sổ</th><th>Thực tế</th><th>Chênh lệch</th><th>Ghi chú</th></tr></thead><tbody>${rows}</tbody>
-        <tfoot><tr><td colspan="5"><b>Tổng</b></td><td><b>${totalBook.toLocaleString()}</b></td><td><b>${totalActual.toLocaleString()}</b></td><td><b>${totalDiff>0?'+':''}${totalDiff.toLocaleString()}</b></td><td></td></tr></tfoot></table>
-        <div class="sign"><div>Thủ kho<br/>____________</div><div>Kế toán<br/>____________</div><div>Trưởng đoàn<br/>____________</div></div>
-        <p style="font-size:11px; margin-top:30px;">Biên bản được lập theo kiểm kê thực tế.</p></body></html>`;
-        const win = window.open();
-        win.document.write(reportHtml);
-        win.document.close();
-        win.print();
-    }
-
-    // ==================== Sự kiện ====================
-    excelFileInput.addEventListener('change', (e) => {
-        if(e.target.files[0]) {
-            handleExcelFile(e.target.files[0]);
-        }
-    });
-    document.querySelector('.file-label').addEventListener('click', () => {
-        excelFileInput.click();
-    });
-    searchInput.addEventListener('input', () => renderProductCards());
-    warehouseSelect.addEventListener('change', () => renderProductCards());
-    exportBtn.addEventListener('click', exportReport);
-    resetBtn.addEventListener('click', resetAllToBook);
-
-    // thử khôi phục localStorage khi load
-    if(!loadFromLocalStorage()) {
-        // không có dữ liệu cũ
-        fileStatusSpan.innerText = "⬆️ Tải file Excel để bắt đầu";
-        productListDiv.innerHTML = `<div class="empty-state">📂 Chưa có dữ liệu. Hãy tải file tổng hợp tồn kho (Excel) lên.</div>`;
-    }
+        // Cập nhật trạng thái webhook nếu người dùng muốn test
+        console.log('🌊 Hệ thống Order Vật Tư - Hải Châu đã sẵn sàng.');
+        console.log('📋 tồn cuối vật tư trong danh mục:', inventoryData.length);
+        console.log('🏢 Số kho:', khoList.length);
+        console.log('🔗 Webhook URL hiện tại:', WEBHOOK_URL);
+        console.log('ℹ️ Để thay đổi webhook URL, hãy sửa biến WEBHOOK_URL trong mã nguồn.');
+    })();
 </script>
 </body>
 </html>
